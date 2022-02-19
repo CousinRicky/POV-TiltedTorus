@@ -4,7 +4,7 @@
  *
  * Demo of tiltedtorus.inc
  *
- * Copyright (C) 2012 - 2021 Richard Callwood III.  Some rights reserved.
+ * Copyright (C) 2012 - 2022 Richard Callwood III.  Some rights reserved.
  * This file is licensed under the terms of the CC-LGPL
  * a.k.a. the GNU Lesser General Public License version 2.1.
  *
@@ -30,6 +30,7 @@
  * 3.0.1  2019-Apr-01  The prefix on container identifier is changed from "v_"
  *                     (vector) to "lv_" (location vector).
  * 3.0.1A 2021-Oct-11  The license text is updated.
+ *        2022-Feb-19  "lv_" is changed to "pv_" (point vector).
  */
 #version 3.5;
 #include "screen.inc"
@@ -55,14 +56,14 @@ light_source
 }
 #default { finish { specular 0.25 roughness 0.025 ambient 0.06 diffuse 0.75 } }
 
-#declare lv_Container = TiltedTorus_Container_v (RMAJOR, rMINOR, yScale, Tilt);
+#declare pv_Container = TiltedTorus_Container_v (RMAJOR, rMINOR, yScale, Tilt);
 
 difference
 { #switch (Type)
     #case (1)
       isosurface
       { function { TiltedTorus_fn (x, y, z, RMAJOR, rMINOR, yScale, Tilt) }
-        contained_by { box { -lv_Container, lv_Container } }
+        contained_by { box { -pv_Container, pv_Container } }
         max_gradient 1 / (rMINOR * min (yScale, 1))
         max_trace 3
       }
@@ -88,7 +89,7 @@ difference
       #break
   #end
   box
-  { -lv_Container, lv_Container * y
+  { -pv_Container, pv_Container * y
     scale 1.01
   }
   pigment { rgb <1.0, 0.3, 0.45> }
